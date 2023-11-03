@@ -1,0 +1,13 @@
+[
+  {
+    "filePath": "C:\\...\\karma.conf.js",
+    "messages": [
+      {
+        "functionBody": "function main() {\n  const commands: Map<\n    Command,\n    (config: Config, args: { [option: string]: CLIArg }) => Promise<void>\n  > = new Map();\n  commands.set(Command.DOWNLOAD_COMMITS, downloadCommitsCommand);\n  commands.set(Command.RUN, runCommand);\n  commands.set(Command.EXPORT, exportCommand);\n  commands.set(Command.REPORT, reportCommand);\n  commands.set(Command.UPLOAD_COMMITS, uploadCommitsCommand);\n  commands.set(Command.TOOLS, toolsCommand);\n  commands.set(Command.VALIDATE, validateCommand);\n  commands.set(Command.LIST, listCommand);\n  commands.set(Command.FILTER, filterCommand);\n  let parser = mkCommandlineParser(false);\n  let args: {\n    [option: string]: CLIArg;\n    command: string;\n  } = parser.parse_args();\n  let { command, ...options } = args;\n  let commandFunction;\n  for (let [k, v] of commands.entries()) {\n    if (getCommandName(k) === command) {\n      commandFunction = v;\n    }\n  }\n  if (!commandFunction) {\n    console.error(`Error: Command '${command}' does not exist:`);\n    parser.print_help();\n    process.exit(1);\n  }\n  let config = getConfig(options);\n  commandFunction(config, args)\n    .then(() => process.exit(0))\n    .catch((e: Error) => {\n      if (e.message.startsWith(\"User error: \")) {\n        console.error(e.message);\n        process.exit(1);\n      } else {\n        console.error(`Error: Command '${command}' failed:`);\n        console.error(e.message);\n        console.error(e.stack);\n        process.exit(2);\n      }\n    });\n}",
+        "startLine": 3,
+        "endLine": 36,
+        "nodeType": "FunctionExpression"
+      }
+    ]
+  }
+]
