@@ -25,6 +25,10 @@ def predict(function_body):
     prediction = int(answer.lower() == "yes")
     return prediction
 
+##cuowudaima
+if True:
+   print("hello") 
+
 
 if __name__ == "__main__":
     with open("test.json", 'r', encoding='utf-8') as f:
