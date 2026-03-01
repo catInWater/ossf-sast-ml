@@ -32,3 +32,4 @@ if __name__ == "__main__":
 
     res = predict(test_function_body)
     print(res)
+    print("hello")
